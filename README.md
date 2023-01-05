@@ -1,6 +1,6 @@
 # Overview
 
-Multiplexer is a Python library and command line interface tool that enables users to develop and apply multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a base model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. We provide here the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single sequence for 2,002 chromatin profiles. Additionally, we provide a jupyter notebook and contains a template for  custom Multiplexer model training and developing.
+Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a base model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. We provide here the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single sequence for 2,002 chromatin profiles. Additionally, we provide a jupyter notebook and contains a template for  custom Multiplexer model training and developing.
 
 The command line tool features two methods, **predict** and **plot**. With **predict**, users can quickly generate a DNA-sequence and make predictions with either the trained BelugaMultiplexer model or their own Multiplexer model, and with **plot**, users can create visualizations of their prediction outputs.
 
@@ -160,3 +160,8 @@ python CLI.py plot <input_file> <output_name> [<index>] [--ppr=<ppr>] [--figsize
 **plot** will create a heatmap showing the predicted mutation effects at all bases of the sequence: blue and red colors indicate negative and positive effects. Specifically, the heatmap shows log fold change of the prediction (log(ALT/(1-ALT))-log(REF/(1-REF)) (the default), or the difference (ALT-REF) if the --diff flag is used. Additionally, the reference sequence is shown on top of the heatmap, with darker color indicating more important bases (average mutation effects are more negative).
 
 By default, the index of the chromatin profile with the largest value is plotted, but the users can optionally specify an index as well with the \<index> argument.
+
+# Manuscript
+
+A second repository containing the code to produce the results and figures from the manuscript can be found [here](https://github.com/jzhoulab/Multiplexer-Manuscript).
+
