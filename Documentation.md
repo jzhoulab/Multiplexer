@@ -70,7 +70,7 @@ To make Multiplexer predictions from the command line, CLI.py uses:
 
 
 ## Prediction Output
-The predict method from the command line outputs a '.pth' file that contains a python dictionary that can be loaded in with `torch.load(<output_name>.pth)`. 
+The predict method from the command line outputs a '.pth' file that contains a python dictionary that can be loaded in with `torch.load(<output_name>.pth)`. These `.pth` files will be saved into the `./newSaves/` directory. 
 
 *  **The contents of the dictionary can be access with the following keys :**
     * "Prediction" : A torch.tensor that contains the saved Multiplexer prediction.
