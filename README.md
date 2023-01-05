@@ -30,22 +30,15 @@ Lastly, before running the command line, users need to download data files from 
 ```sh
 wget https://zenodo.org/record/7502574/files/CLIdata.zip?download=1
 ```
-These downloaded files are zipped and can be unzipped with 
+Alternatively users use this [link](FIXME) to download the data off the website and manually move it into the Multiplexer directory. 
+
+These files are zipped and can be unzipped with 
 
 ```sh
-python unzip.py
+unzip CLIdata.zip?download=1
 ```
   
 After these requirements are met, navigate to the CLI directory in Multiplexer via the command line and you are ready to start!
-
-# Data
-To use the command line tool, users to must clone the 
-
-irst install the command line interface data (CLIdata) with the following command
-
-```sh
-wget https://zenodo.org/record/7502574/files/CLIdata.zip?download=1
-```
 
 
 # Quick Start
@@ -61,7 +54,9 @@ For example, entering:
 ```sh
 python CLI.py predict --chromosome=chr11 --position=1000000 my_prediction 
 ```
-Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction into a file named 'my_prediction.pth'. This prediction can then be loaded in python by calling `torch.load('my_prediction.pth')`.
+Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction as part of a python dictionary that can be found in the './newSaves' directory. This diciontary can then be loaded in python by calling `torch.load('my_prediction.pth')` and using the `'prediction'` key. 
+
+Note that the first run of **predict** will be comparatively slow as the `pyfasta` module is processing the genome object. However, subsequent runs will be notably faster. 
   
   
 ### Multiple predictions
@@ -81,7 +76,6 @@ python CLI.py predict --inputs_file=my_input_file my_output_file
 ```
 
 **predict** will then makes predictions for each value of the inputs file using BelugaMutliplexer and save the them into a single pickle file. To access the predictions, use `torch.load('my_output_file.pth')` to load in the prediction dictionary, and use the key `'predictions'` to retrieve the predicted values as a torch.tensor. 
-
  
   
 ### **Plotting Predictions**
@@ -93,16 +87,16 @@ To use **plot** in the command line, enter:
 python CLI.py plot <input_file> <output_name> 
 ``` 
   
-Note that **plot** is only able to plot predictions made from single predictions (when users specify a chromosome and position in the command line) and is unable to make aggregate plots from multiple predictions (when an input file is provided). To make multiple predictions and plots, it is recommended that users make predictions individually and then use **plot** on each output. 
+Plots and predictions will be saved by default into the `./newSaves' directory. 
  
 # Training Notebook
 
-To help users train a custom SNV Multiplexer model, we provide a [Training.ipynb](https://github.com/jzhoulab/MultiplexerDev/blob/main/Training.ipynb) that contains starter code that can, with few adjustments, be adapted to train various models of custom input/output sizes. 
+To help users train a custom SNV Multiplexer model, we provide a [Training.ipynb](FIXME) that contains starter code that can, with few adjustments, be adapted to train various models of custom input/output sizes. 
 
 The training methods provided in the notebook are based on the code used to train the BelugaMultiplexer model but have been adjusted to accomodate models of varying dimensions. Given a custom base model, the notebook can be used generate training data, perform forward and backward propogation, and save the trained model's parameters.
 
 
-To use the command line methods with a custom trained Multiplexer, simply create a '.py' file that contains the Multiplexer model (remember to import torch and nn) and a file that contains the trained model parameters. An example of such a file is available [here](link to example). 
+To use the command line methods with a custom trained Multiplexer, simply create a '.py' file that contains the Multiplexer model (remember to import torch and nn) and a file that contains the trained model parameters. An second training notebook demonstrates Multiplexer training with a custom Base model with different input/output dimensionality. When users train their own Multiplexer model, they should provide both a '.py' file that contains a Base model as well as trained Base model weights. 
 
 
 # Predict
@@ -119,7 +113,7 @@ The full **predict** method is shown below and full documentation can be found [
   
 ### Predictions with BelugaMultiplexer
   
-By default, **predict** makes predictions with the trained BelugaMultiplexer models. Instructions are shown in the [Quick Start](https://github.com/jzhoulab/MultiplexerDev/blob/main/README.md#quick-start) section
+By default, **predict** makes predictions with the trained BelugaMultiplexer models. Instructions are shown in the [Quick Start](FIXME) section
   
 Optionally, "--diff" and "--add_tsv" can be added to the end of the predict command. 
   
@@ -136,6 +130,7 @@ This command saves the files `my_prediction.pth` and `my_prediction.tsv.gz`
 
   
 ### Single Predictions with custom model
+
 In addition to making predictions with the trained BelugaMutliplexer models, the command line tool also supports predicting and plotting custom trained DNA-sequence Multiplexer model. To use **predict** with a custom model, at a minimum, users must provide  `--modelname=<modelname>`, `--modelpath=<modelp>`, `--weights=<weights>`, `--seqlen=<len>`, and `--predlen=<pred_len>` in addition to either an inputs file or a chromosome and position pair.
   
 Example of custom model prediction:
