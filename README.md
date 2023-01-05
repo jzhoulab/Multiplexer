@@ -102,7 +102,7 @@ To use the command line methods with a custom trained Multiplexer, simply create
 
 # Predict
 
-The full **predict** method is shown below and full documentation can be found [here](https://github.com/jzhoulab/MultiplexerDev/blob/main/Documentation.md)
+The full **predict** method is shown below and full documentation can be found [here](https://github.com/jzhoulab/Multiplexer/blob/master/Documentation.md#documentation)
 
 
 ```sh
