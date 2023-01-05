@@ -15,7 +15,7 @@ To make Multiplexer predictions from the command line, CLI.py uses:
 ```
 
 * `<filename>` : **str** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to an input file that contains chromosome and position values for prediction. An example of a formatted input file &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; can be found [here](https://github.com/jzhoulab/MultiplexerDev/blob/main/inputs.txt).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to an input file that contains chromosome and position values for prediction. An example of a formatted input file &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; can be found in the CLIdata file ('inputs.txt'). 
           
           
 * `<chr>` : **str** \
