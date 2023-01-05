@@ -28,7 +28,7 @@ pip install -r requirements.txt
 Lastly, before running the command line, users need to download data files from Zenodo. It is recommended that users `cd` into the Multiplexer directory and download the data with 
 
 ```sh
-wget https://zenodo.org/record/7502574/files/CLIdata.zip?download=1
+wget https://zenodo.org/record/7504998/files/CLIdata.zip?download=1
 ```
 Alternatively users use this [link](https://zenodo.org/record/7504998#.Y7ZCxuzMKrw) to download the data off the website and manually move it into the Multiplexer directory. 
 
