@@ -17,7 +17,7 @@ To use the Multiplexer command line tool locally, start by downloading the lates
 ```sh
 git clone https://github.com/jzhoulab/Multiplexer.git  
 ```
-Then, make sure all packages in the [requirements.txt](https://github.com/jzhoulab/MultiplexerDev/blob/main/requirements.txt) file are installed. The requirements.txt file contains a list of required packages that can installed simultaneously with
+Then, make sure all packages in the [requirements.txt](https://github.com/jzhoulab/Multiplexer/blob/master/requirements.txt) file are installed. The requirements.txt file contains a list of required packages that can installed simultaneously with
 
 ```sh
 pip install -r requirements.txt
@@ -30,7 +30,7 @@ Lastly, before running the command line, users need to download data files from 
 ```sh
 wget https://zenodo.org/record/7502574/files/CLIdata.zip?download=1
 ```
-Alternatively users use this [link](FIXME) to download the data off the website and manually move it into the Multiplexer directory. 
+Alternatively users use this [link](https://zenodo.org/record/7504998#.Y7ZCxuzMKrw) to download the data off the website and manually move it into the Multiplexer directory. 
 
 These files are zipped and can be unzipped with 
 
@@ -91,12 +91,13 @@ Plots and predictions will be saved by default into the `./newSaves' directory.
  
 # Training Notebook
 
-To help users train a custom SNV Multiplexer model, we provide a [Training.ipynb](FIXME) that contains starter code that can, with few adjustments, be adapted to train various models of custom input/output sizes. 
+To help users train a custom SNV Multiplexer model, we provide a [Training.ipynb](https://github.com/jzhoulab/Multiplexer/tree/master/training#:~:text=34%20minutes%20ago-,Training.ipynb,-new) that contains starter code that can, with few adjustments, be adapted to train various models of custom input/output sizes. 
 
 The training methods provided in the notebook are based on the code used to train the BelugaMultiplexer model but have been adjusted to accomodate models of varying dimensions. Given a custom base model, the notebook can be used generate training data, perform forward and backward propogation, and save the trained model's parameters.
 
+A second training notebook ['demoTraining.ipynb'](https://github.com/jzhoulab/Multiplexer/tree/master/training#:~:text=35%20minutes%20ago-,demoTraining.ipynb,-new) demonstrates custom Multiplexer training with a Base model that uses different input/output dimensions. When users train their own Multiplexer model, they should provide both a '.py' file that contains a Base model as well as trained Base model weights.
 
-To use the command line methods with a custom trained Multiplexer, simply create a '.py' file that contains the Multiplexer model (remember to import torch and nn) and a file that contains the trained model parameters. An second training notebook demonstrates Multiplexer training with a custom Base model with different input/output dimensionality. When users train their own Multiplexer model, they should provide both a '.py' file that contains a Base model as well as trained Base model weights. 
+To use the command line methods with a custom trained Multiplexer, simply create a '.py' file that contains the Multiplexer model (remember to import torch and nn) and a file that contains the trained model parameters. 
 
 
 # Predict
@@ -113,7 +114,7 @@ The full **predict** method is shown below and full documentation can be found [
   
 ### Predictions with BelugaMultiplexer
   
-By default, **predict** makes predictions with the trained BelugaMultiplexer models. Instructions are shown in the [Quick Start](FIXME) section
+By default, **predict** makes predictions with the trained BelugaMultiplexer models. Instructions are shown in the [Quick Start](https://github.com/jzhoulab/Multiplexer#quick-start) section
   
 Optionally, "--diff" and "--add_tsv" can be added to the end of the predict command. 
   
