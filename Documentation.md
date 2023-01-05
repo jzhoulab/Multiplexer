@@ -1,8 +1,6 @@
 # Documentation
 
-The command line tool follows the formatting outlined by docopt, a command-line interface description language. Further details on using docopt and be found [here](http://docopt.org/)
-
-
+The command line tool follows the formatting outlined by docopt, a command-line interface description language. Further details on using docopt and be found [here](http://docopt.org/).
 
 
 
@@ -68,7 +66,7 @@ To make Multiplexer predictions from the command line, CLI.py uses:
 * `<genome>` : **str** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to a custom genome [Default = hg.19]. 
 
-A sample demo Multiplexer model and base model are provided in the [/models](https://github.com/jzhoulab/Multiplexer/tree/master/models#:~:text=17%20hours%20ago-,demoBase.py,-new) directory and their respective weights can be found in the CLIdata file downloaded from Zenodo.
+A sample demo Multiplexer model and base model are provided in the [./models](https://github.com/jzhoulab/Multiplexer/tree/master/models#:~:text=17%20hours%20ago-,demoBase.py,-new) directory and their respective weights can be found in the CLIdata file downloaded from Zenodo.
 
 ## Prediction Output
 The predict method from the command line outputs a '.pth' file that contains a python dictionary that can be loaded in with `torch.load(<output_name>.pth)`. These `.pth` files will be saved into the `./newSaves/` directory. 
