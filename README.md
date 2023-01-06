@@ -1,6 +1,6 @@
 # Overview
 
-Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a base model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. We provide here the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single sequence for 2,002 chromatin profiles. Additionally, we provide a jupyter notebook and contains a template for  custom Multiplexer model training and developing.
+Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a "Base" model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. Here, we provide the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single 2000 base-pair sequence for 2,002 chromatin profiles. Additionally, we provide a Jupyter notebook and contains a template for custom Multiplexer model training and development.
 
 The command line tool features two methods, **predict** and **plot**. With **predict**, users can quickly generate a DNA-sequence and make predictions with either the trained BelugaMultiplexer model or their own Multiplexer model, and with **plot**, users can create visualizations of their prediction outputs.
 
@@ -13,11 +13,11 @@ It is recommended that users install Python 3.6 or above before running the Mult
 
 Additionally, install [PyTorch](https://pytorch.org/get-started/locally/). If you are using NVIDIA GPU, be sure to check that your version of PyTorch is compatible with your GPU.
 
-To use the Multiplexer command line tool locally, start by downloading the latest commits from the source repository
+To use the Multiplexer command line tool locally, start by downloading the latest commits from the source repository with
 ```sh
 git clone https://github.com/jzhoulab/Multiplexer.git  
 ```
-Then, make sure all packages in the [requirements.txt](https://github.com/jzhoulab/Multiplexer/blob/master/requirements.txt) file are installed. The requirements.txt file contains a list of required packages that can installed simultaneously with
+Then, make sure all packages in the [requirements.txt](https://github.com/jzhoulab/Multiplexer/blob/master/requirements.txt) file are installed. The requirements.txt file contains a list of required packages that can be installed simultaneously with
 
 ```sh
 pip install -r requirements.txt
@@ -25,14 +25,14 @@ pip install -r requirements.txt
 
 ### Command Line Data
 
-Lastly, before running the command line, users need to download data files from Zenodo. It is recommended that users `cd` into the Multiplexer directory and download the data with 
+Lastly, before running the command line, users need to download data files from Zenodo. It is recommended that users `cd` into the Multiplexer directory and then download the data with 
 
 ```sh
 wget https://zenodo.org/record/7504998/files/CLIdata.zip?download=1
 ```
 Alternatively users use this [link](https://zenodo.org/record/7504998#.Y7ZCxuzMKrw) to download the data off the website and manually move it into the Multiplexer directory. 
 
-These files are zipped and can be unzipped with 
+These files are initially zipped and can be unzipped with 
 
 ```sh
 unzip CLIdata.zip?download=1
@@ -48,13 +48,13 @@ With **predict**, users can make a chromatin profile prediction with the BelugaM
 ```sh
 python CLI.py predict --chromosome=<chromosome> --position=<pos> <output_name> 
 ```
-<chromosome> specifies which chromosome the input sequence is drawn from and should be given in the format 'chr[0-22,X,Y]' (e.g 'chr11'), \<pos> is an integer that specifies the position within the chromosome that the sequence is be centered on, and <output_name> is the desired name of the output file.
+\<chromosome> specifies which chromosome the input sequence is drawn from and should be given in the format 'chr[0-22,X,Y]' (e.g 'chr11'), \<pos> is an integer that specifies the position within the chromosome that the sequence is centered, and <output_name> is the desired name of the output file.
 
 For example, entering: 
 ```sh
 python CLI.py predict --chromosome=chr11 --position=1000000 my_prediction 
 ```
-Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction as part of a python dictionary that can be found in the './newSaves' directory. This diciontary can then be loaded in python by calling `torch.load('my_prediction.pth')` and using the `'prediction'` key. 
+Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction as part of a python dictionary that can be found in the './newSaves' directory. This dictionary can then be loaded in python by calling `torch.load('my_prediction.pth')` and using the `'prediction'` key. 
 
 Note that the first run of **predict** will be comparatively slow as the `pyfasta` module is processing the genome object. However, subsequent runs will be notably faster. 
   
@@ -74,6 +74,7 @@ Then, pass the file to the predict method using the command:
 ```sh
 python CLI.py predict --inputs_file=my_input_file my_output_file
 ```
+Where `my_input_file` is the relative path to the file containing model inputs.
 
 **predict** will then makes predictions for each value of the inputs file using BelugaMutliplexer and save the them into a single pickle file. To access the predictions, use `torch.load('my_output_file.pth')` to load in the prediction dictionary, and use the key `'predictions'` to retrieve the predicted values as a torch.tensor. 
  
@@ -86,8 +87,7 @@ To use **plot** in the command line, enter:
 ```sh
 python CLI.py plot <input_file> <output_name> 
 ``` 
-  
-Plots and predictions will be saved by default into the `./newSaves' directory. 
+Where \<input_file> is the relative path to the Multiplexer predictions saved by **predict** and \<output_name> is the desired name for the saved plot. Note, plots and predictions will be saved by default into the `./newSaves' directory.
  
 # Training Notebook
 
