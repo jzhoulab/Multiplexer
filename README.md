@@ -1,6 +1,6 @@
 # Overview
 
-Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a "Base" model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. Here, we provide the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single 2000 base-pair sequence for 2,002 chromatin profiles. Additionally, we provide a Jupyter notebook and contains a template for custom Multiplexer model training and development.
+Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a "Base" model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. Here, we provide the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single 2,000 base-pair sequence for 2,002 chromatin profiles. Additionally, we provide a Jupyter notebook and contains a template for custom Multiplexer model training and development.
 
 The command line tool features two methods, **predict** and **plot**. With **predict**, users can quickly generate a DNA-sequence and make predictions with either the trained BelugaMultiplexer model or their own Multiplexer model, and with **plot**, users can create visualizations of their prediction outputs.
 
@@ -30,7 +30,7 @@ Lastly, before running the command line, users need to download data files from 
 ```sh
 wget https://zenodo.org/record/7504998/files/CLIdata.zip?download=1
 ```
-Alternatively users use this [link](https://zenodo.org/record/7504998#.Y7ZCxuzMKrw) to download the data off the website and manually move it into the Multiplexer directory. 
+Alternatively users use this [link](https://zenodo.org/record/7504998#.Y7ZCxuzMKrw) to download the data off the website and move the file into the Multiplexer directory. 
 
 These files are initially zipped and can be unzipped with 
 
@@ -48,20 +48,20 @@ With **predict**, users can make a chromatin profile prediction with the BelugaM
 ```sh
 python CLI.py predict --chromosome=<chromosome> --position=<pos> <output_name> 
 ```
-\<chromosome> specifies which chromosome the input sequence is drawn from and should be given in the format 'chr[0-22,X,Y]' (e.g 'chr11'), \<pos> is an integer that specifies the position within the chromosome that the sequence is centered, and <output_name> is the desired name of the output file.
+\<chromosome> specifies which chromosome the input sequence is drawn from and should be given in the format 'chr[0-22,X,Y]' (e.g 'chr11'), \<pos> is an integer that specifies the position within the chromosome that the sequence is centered, and \<output_name> is the desired name of the output file that is saved to the './newSaves' directory.
 
 For example, entering: 
 ```sh
 python CLI.py predict --chromosome=chr11 --position=1000000 my_prediction 
 ```
-Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction as part of a python dictionary that can be found in the './newSaves' directory. This dictionary can then be loaded in python by calling `torch.load('my_prediction.pth')` and using the `'prediction'` key. 
+Generates a 2,000 base-pair DNA sequence sampled from chr11 that is centered around position 1000000, passes the sequence through the BelugaMultiplexer model, and saves the prediction as part of a python dictionary. This dictionary can then be loaded in python by calling `torch.load('./newSaves/my_prediction.pth')` and using the `'prediction'` key. 
 
 Note that the first run of **predict** will be comparatively slow as the `pyfasta` module is processing the genome object. However, subsequent runs will be notably faster. 
   
   
 ### Multiple predictions
 
-In addition to making predictions one at a time, **predict** also allows users to input a tab separated text file and make multiple predictions at once. In each row, input files should specify a chromosome as well as a position. For example:
+In addition to making predictions one at a time, **predict** also allows users to input a tab separated text file and make multiple predictions all at once. In each row, input files should specify a chromosome as well as a position. For example:
 
 ```sh
 chr3 825972
@@ -76,7 +76,7 @@ python CLI.py predict --inputs_file=my_input_file my_output_file
 ```
 Where `my_input_file` is the relative path to the file containing model inputs.
 
-**predict** will then makes predictions for each value of the inputs file using BelugaMutliplexer and save the them into a single pickle file. To access the predictions, use `torch.load('my_output_file.pth')` to load in the prediction dictionary, and use the key `'predictions'` to retrieve the predicted values as a torch.tensor. 
+**predict** will then make predictions for each value of the inputs file using BelugaMutliplexer and save the them into a single pickle file. To access the predictions, use `torch.load('./newSaves/my_output_file.pth')` to load in the prediction dictionary, and use the key `'predictions'` to retrieve the predicted values as a torch.tensor. 
  
   
 ### **Plotting Predictions**
@@ -102,7 +102,7 @@ To use the command line methods with a custom trained Multiplexer, simply create
 
 # Predict
 
-The full **predict** method is shown below and full documentation can be found [here](https://github.com/jzhoulab/Multiplexer/blob/master/Documentation.md#documentation)
+The full **predict** method is shown below and the full documentation can be found [here](https://github.com/jzhoulab/Multiplexer/blob/master/Documentation.md#documentation)
 
 
 ```sh
@@ -132,19 +132,19 @@ This command saves the files `my_prediction.pth` and `my_prediction.tsv.gz`
   
 ### Single Predictions with custom model
 
-In addition to making predictions with the trained BelugaMutliplexer models, the command line tool also supports predicting and plotting custom trained DNA-sequence Multiplexer model. To use **predict** with a custom model, at a minimum, users must provide  `--modelname=<modelname>`, `--modelpath=<modelp>`, `--weights=<weights>`, `--seqlen=<len>`, and `--predlen=<pred_len>` in addition to either an inputs file or a chromosome and position pair. This corresponds with a the Multiplexer name, relative path to a file containing the model, relative path to a file containing the model weights, the length of the model input, and number of features predicted by the model (output dimension).
+In addition to making predictions with the trained BelugaMutliplexer models, the command line tool also supports predicting and plotting custom trained DNA-sequence Multiplexer model. To use **predict** with a custom model, at a minimum, users must provide  `--modelname=<modelname>`, `--modelpath=<modelp>`, `--weights=<weights>`, `--seqlen=<len>`, and `--predlen=<pred_len>` in addition to either an inputs file or a chromosome and position pair. This corresponds with the name of the Multiplexer model, a relative path to a file containing the model, a relative path to a file containing the model weights, the length of the model input, and number of features predicted by the model (output dimension).
   
 Example of custom model prediction:
 ```sh
 python CLI.py predict chromosome=chr8 position=1000000 my_prediction --modelname=myMultiplexer 
-  --modelpath=./myDirectory/mymodel.py  --weights=./myDirectory/modelweights --seqlen=1000 --predlen=1002
+  --modelpath=./myDirectory/mymodel.py  --weights=./myDirectory/modelweights.pth --seqlen=1000 --predlen=1002
 ```
 The model myMultiplexer will make a prediction and save it to a file titled  `my_prediction.pth`. The input sequence for myMultiplexer has length 1000 and the output has dimension 1002.
 
   
 ### Output format
   
- For both single and multi-predictions, the output will be a python dictionary that is saved as a '.pth' file and can be accessed with the command `dictionary = torch.load('file_name.pth')`. The tensor containing the prediction can be accessed by loading in the dictionary and using the key `'prediction'`.
+ For both single and multi-predictions, the output will be a python dictionary that is saved as a '.pth' file and can be accessed with the command `dictionary = torch.load('./path/file_name.pth')`. The tensor containing the prediction can be accessed by loading in the dictionary and using the key `'prediction'`.
 
 If a single prediction is made, the output tensor will have dimensions `[2002, 4, 2000]` - 2002 is the number of chromatin profiles, 4 represents the 4 basepairs (A,G,C,T), and 2000 represents each position in the sequence. If a file of inputs is provided, the output shape will be `[# of inputs, 2002, 4, 2000]`  where users can index along axis 0 to retrieve the desired prediction. For example, `[2, 2002, 4, 2000]` would correspond to the BelugaMultiplexer prediction for the 3rd input in the input file. 
   
@@ -157,7 +157,7 @@ After **predict** is used and an output is saved, **plot** can be used to genera
 python CLI.py plot <input_file> <output_name> [<index>] [--ppr=<ppr>] [--figsize=<fsize>] [--output_format=<oformat>]  
 ```
   
-**plot** will create a heatmap showing the predicted mutation effects at all bases of the sequence: blue and red colors indicate negative and positive effects. Specifically, the heatmap shows log fold change of the prediction (log(ALT/(1-ALT))-log(REF/(1-REF)) (the default), or the difference (ALT-REF) if the --diff flag is used. Additionally, the reference sequence is shown on top of the heatmap, with darker color indicating more important bases (average mutation effects are more negative).
+**plot** will create a heatmap showing the predicted mutation effects at all basepairs of the sequence: blue and red colors indicate negative and positive effects respectively. Specifically, the heatmap shows the log fold change of the prediction (log(ALT/(1-ALT))-log(REF/(1-REF)) (the default), or the difference (ALT-REF) if the --diff flag is used. Additionally, the reference sequence is shown on top of the heatmap, with darker color indicating more important bases (average mutation effects are more negative).
 
 By default, the index of the chromatin profile with the largest value is plotted, but the users can optionally specify an index as well with the \<index> argument.
 
