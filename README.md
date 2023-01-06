@@ -95,7 +95,7 @@ To help users train a custom SNV Multiplexer model, we provide a [Training.ipynb
 
 The training methods provided in the notebook are based on the code used to train the BelugaMultiplexer model but have been adjusted to accomodate models of varying dimensions. Given a custom base model, the notebook can be used generate training data, perform forward and backward propogation, and save the trained model's parameters.
 
-A second training notebook ['demoTraining.ipynb'](https://github.com/jzhoulab/Multiplexer/tree/master/training#:~:text=35%20minutes%20ago-,demoTraining.ipynb,-new) demonstrates custom Multiplexer training with a Base model that uses different input/output dimensions. When users train their own Multiplexer model, they should provide both a '.py' file that contains a Base model as well as trained Base model weights.
+A second training notebook ['demoTraining.ipynb'](https://github.com/jzhoulab/Multiplexer/tree/master/training#:~:text=35%20minutes%20ago-,demoTraining.ipynb,-new) demonstrates custom Multiplexer training with a Base model that uses different input/output dimensions. When users train their own Multiplexer model, they should provide both a '.py' file that contains a Base model as well as a file containing trained Base model weights.
 
 To use the command line methods with a custom trained Multiplexer, simply create a '.py' file that contains the Multiplexer model (remember to import torch and nn) and a file that contains the trained model parameters. 
 
@@ -132,7 +132,7 @@ This command saves the files `my_prediction.pth` and `my_prediction.tsv.gz`
   
 ### Single Predictions with custom model
 
-In addition to making predictions with the trained BelugaMutliplexer models, the command line tool also supports predicting and plotting custom trained DNA-sequence Multiplexer model. To use **predict** with a custom model, at a minimum, users must provide  `--modelname=<modelname>`, `--modelpath=<modelp>`, `--weights=<weights>`, `--seqlen=<len>`, and `--predlen=<pred_len>` in addition to either an inputs file or a chromosome and position pair.
+In addition to making predictions with the trained BelugaMutliplexer models, the command line tool also supports predicting and plotting custom trained DNA-sequence Multiplexer model. To use **predict** with a custom model, at a minimum, users must provide  `--modelname=<modelname>`, `--modelpath=<modelp>`, `--weights=<weights>`, `--seqlen=<len>`, and `--predlen=<pred_len>` in addition to either an inputs file or a chromosome and position pair. This corresponds with a the Multiplexer name, relative path to a file containing the model, relative path to a file containing the model weights, the length of the model input, and number of features predicted by the model (output dimension).
   
 Example of custom model prediction:
 ```sh
@@ -144,9 +144,9 @@ The model myMultiplexer will make a prediction and save it to a file titled  `my
   
 ### Output format
   
- For both single and multi-predictions, the output will be a python dictionary that is saved as a '.pth' file and can be accessed with the command `dictionary = torch.load('file_name.pth')`. The tensor containing the prediction will can be accessed by loading in the dictionary and using the key `'prediction'`.
+ For both single and multi-predictions, the output will be a python dictionary that is saved as a '.pth' file and can be accessed with the command `dictionary = torch.load('file_name.pth')`. The tensor containing the prediction can be accessed by loading in the dictionary and using the key `'prediction'`.
 
-If a single prediction is made, the output tensor will have dimensions `[2002, 4, 2000]` - 2002 is the number of chromatin profiles, 4 represents the 4 basepairs (A,G,C,T), and 2000 presents each position in the sequence. If a file of inputs is provided, the output shape will be `[# of inputs, 2002, 4, 2000]`  where users can index along axis 0 to retrieve the desired prediction. For example, `[2, 2002, 4, 2000]` would correspond to the BelugaMultiplexer prediction for the 3rd input in the input file. 
+If a single prediction is made, the output tensor will have dimensions `[2002, 4, 2000]` - 2002 is the number of chromatin profiles, 4 represents the 4 basepairs (A,G,C,T), and 2000 represents each position in the sequence. If a file of inputs is provided, the output shape will be `[# of inputs, 2002, 4, 2000]`  where users can index along axis 0 to retrieve the desired prediction. For example, `[2, 2002, 4, 2000]` would correspond to the BelugaMultiplexer prediction for the 3rd input in the input file. 
   
 To access a saved tsv file saved with the `--add_tsv` flag , it is suggested that users use `pd.read_csv('output_name.tsv', compression = 'gzip', sep = '\t', index_col = 0)` to load in a pandas dataframe with accurate row and column names. Column names contain the name of chromatin profiles such as "Chorion|DNase" and row names indicate the original chromosome, the position, and the basepair mutation such as "chrX:1000000 C>A".
   
