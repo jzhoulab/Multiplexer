@@ -1,5 +1,5 @@
 importlib
-pyfasta>=0.5.2
+pyfaidx
 numpy>=1.14.2
 pandas>=2.7.3
 torch>=1.11.0
