@@ -49,7 +49,7 @@ def encode_sequence(chrome_num, pos):
         position : int
             Center position of the chromosome to be sample from
             
-        genome : pyfasta object
+        genome : fasta object
             The genome that sequences are drawn from
             
         length : int
