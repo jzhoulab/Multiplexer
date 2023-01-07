@@ -1,4 +1,4 @@
-import pyfasta
+import pyfaidx 
 import torch
 from torch import nn
 import pandas as pd
@@ -179,7 +179,7 @@ def encode_sequence(chrome_num, position, genome, length):
         lower = int(length/2)
         upper = int(length/2)
     
-    seq = genome.sequence({'chr': chrome_num, 'start': position - lower , 'stop': position + upper})
+    seq = genome[chrome_num][position - lower -1 : position + upper]
 
     #define the encoding
     encoding_dict = {'A': torch.tensor([1, 0, 0, 0]), 'G': torch.tensor([0, 1, 0, 0]),
@@ -273,7 +273,7 @@ def predict(inputs_file = None, chrome_num = None, position = None, output_name 
     
     
     #load model and genome
-    genome = pyfasta.Fasta('../CLIdata/hg19.fa') if genome == None else genome
+    genome = pyfaidx.Fasta('../CLIdata/hg19.fa') if genome == None else genome
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     seq_len = 2000 if seq_len == None else int(seq_len)
     prediction_dim = 2002 if prediction_dim == None else int(prediction_dim)

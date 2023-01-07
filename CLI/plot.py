@@ -1,4 +1,4 @@
-import pyfasta
+import pyfaidx 
 import torch
 from torch import nn
 import matplotlib.pyplot as plt
@@ -61,7 +61,7 @@ def encode_sequence(chrome_num, pos):
         
 
     """
-    seq = genome.sequence({'chr': chrome_num, 'start': pos - 999 , 'stop': pos + 1000})
+    seq = str(genome[chrome_num][pos-1000:pos+1000])
 
     #define the encoding
     encoding_dict = {'A': torch.tensor([1, 0, 0, 0]), 'G': torch.tensor([0, 1, 0, 0]),
