@@ -179,7 +179,7 @@ def encode_sequence(chrome_num, position, genome, length):
         lower = int(length/2)
         upper = int(length/2)
     
-    seq = genome[chrome_num][position - lower -1 : position + upper]
+    seq = str(genome[chrome_num][position - lower -1 : position + upper])
 
     #define the encoding
     encoding_dict = {'A': torch.tensor([1, 0, 0, 0]), 'G': torch.tensor([0, 1, 0, 0]),
