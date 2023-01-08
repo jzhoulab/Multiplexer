@@ -26,7 +26,7 @@ To make Multiplexer predictions from the command line, CLI.py uses:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chromosome and position must be specified. 
 
 * `<output_name>` : **str** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The name of the output file. **predict** automatically saves the prediction as '\<output_name>.pth'. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The name of the output file. **predict** automatically saves the prediction as '\<output_name>.pth' into the './newSaves' directory. 
 
 * `--add_tsv` : **bool** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A flag that, if raised, indicates to additionally save a .tsv.gz file containing the Multiplexer predictions.
@@ -72,7 +72,7 @@ A sample demo Multiplexer model and base model are provided in the [./models](ht
 The predict method from the command line outputs a '.pth' file that contains a python dictionary that can be loaded in with `torch.load(<output_name>.pth)`. These `.pth` files will be saved into the `./newSaves/` directory. 
 
 *  **The contents of the dictionary can be access with the following keys :**
-    * "Prediction" : A torch.tensor that contains the saved Multiplexer prediction.
+    * "prediction" : A torch.tensor that contains the saved Multiplexer prediction.
     * "reference" : A torch.tensor that contains the 1-hot encoding of the reference sequence.
     * "center_pos" : A int that represents the center value of the reference sequence.
     * "diff" : A boolean that is True if the --diff flag was used to make the prediction.
@@ -93,10 +93,10 @@ Within the CLI.pi file, the method to plot predictions is define as
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to an input file containing a prediction to be plotted. Input files must be created from the **predict** method.  
 
 * `<output_name>` : **str** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The name of the file the output plot is saved in. By default, **plot** saves an output plot titled '<output_name>.pdf'.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The name of the file the output plot is saved in. By default, **plot** saves an output plot titled '<output_name>.pdf' in the './newSaves/' directory.
 
 *  `<findex>` : **int** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; When an file that contains multiple chromosome and position values is given to **predict**, all predictions are saved in a single &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tensor. \<findex\> specifies which prediction within the tensor is plotted.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; When a file that contains multiple chromosome and position values is given to **predict**, all predictions are saved in a single &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tensor. \<findex\> specifies which prediction within the tensor is plotted.
 
 * `<tindex>` : **int** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The index of the feature to be plotted. By default, the index of the feature with the largest value is plotted.
@@ -105,7 +105,7 @@ Within the CLI.pi file, the method to plot predictions is define as
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The number of positions plotted in each row. The total rows plotted is equal to `ceiling(total number of positions/<ppr>)`. 
 
 * `<fsize>` : **int, int** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The size of the output figure given as two int values seperated by a comma, such as `40,40` [Default = (50,50)].
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The size of the output figure given as two int values seperated by a comma, such as `40,40` [default = (50,50)].
 
 * `<oformat>` : **str**  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The format of the file that contains the output plot [Default = 'Pdf']. The full list of formats can be found [here](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The format of the file that contains the output plot [default = 'Pdf']. The full list of formats can be found [here](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html)
