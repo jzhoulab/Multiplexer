@@ -31,7 +31,7 @@ def get_data(input_file_path, file_index):
     
     i = 0 if file_index == None else int(file_index) - 1
     
-    center_pos = data['center_pos'] if i == 0 else data['center_pos'][i]
+    center_pos = data['center_pos'] if type(data['center_pos']) != list else data['center_pos'][i]
     return data["prediction"][i], data["reference"][i], center_pos, data["diff"]
    
 
