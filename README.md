@@ -160,7 +160,7 @@ CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--tar
   
 **plot** will create a heatmap showing the predicted mutation effects at all basepairs of the sequence: blue and red colors indicate negative and positive effects respectively. Specifically, the heatmap shows the log fold change of the prediction (log(ALT/(1-ALT))-log(REF/(1-REF)) (the default), or the difference (ALT-REF) if the --diff flag is used. Additionally, the reference sequence is shown on top of the heatmap, with darker color indicating more important bases (average mutation effects are more negative).
 
-By default, the index of the chromatin profile with the smallest value is plotted, but the users can optionally specify an index as well with the \<index> argument.
+By default, the index of the chromatin profile with the smallest value is plotted, but the users can optionally specify a target index with the \<index> argument.
 
 # Manuscript
 
