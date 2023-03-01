@@ -11,7 +11,7 @@ Beluga Multiplexer CLI
 
 Usage:
     CLI.py predict ( --inputs_file=<filename> | --chromosome=<chr> --position=<pos>) <output_name> [--add_tsv] [--diff] [(--modelname=<modelname> --modelpath=<modelp> --weights=<weights> --seqlen=<len> --predlen=<pred_len>)] [(--basename=<bmodel> --basemodelpath=<bmp> --baseweights=<bweights>)] [--colname=<cnames>] [--genome=<genome>] 
-    CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] [--ppr=<ppr>] [--figsize=<fsize>] [--output_format=<oformat>]
+    CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] [--target_names=<tnames>][--ppr=<ppr>] [--figsize=<fsize>] [--output_format=<oformat>]
     CLI.py --help
 
 Options:
@@ -34,6 +34,7 @@ Options:
     --multi_file=<multi_file>  <multi_file> is a '.pth' file to be used for plotting that contains multiple predictions
     --file_index=<findex>      <findex> represents the row index of a multiple inputs file (<filename>) to be plotted
     --target_index=<tindex>    <tindex> which target index to plot [default = index of max chromatin profile prediction]
+    --target_names=<tnames>     <tnames> file of target names to be plotted
     --ppr=<ppr>                <ppr> is positions per plot, the number of positions to be plotted on each row of the plot
     --figsize=<fsize>          <fsize> is the figure size in the format int,int [default = (50,50)]
     --output_foramt=<oformat>  <oformat> is the format the output file is saved
@@ -54,8 +55,9 @@ if args['predict']:
     
         
 if args['plot']:        
-    plot(input_file_path = args['--plot_file'], output_name = args['<output_name>'], file_index = args['--file_index'], user_index = args['--target_index'], ppr = args['--ppr'], figsize = args['--figsize'], output_format = args['--output_format'])
+    plot(input_file_path = args['--plot_file'], output_name = args['<output_name>'], file_index = args['--file_index'], user_index = args['--target_index'], target_names=args['--target_names'], ppr = args['--ppr'], figsize = args['--figsize'], output_format = args['--output_format'])
 
     
 if args['--help']:
     print(usage)
+
