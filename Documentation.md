@@ -85,8 +85,8 @@ If the `--add_tsv` flag is used, an additional '.tsv.gz' file is saved. It is su
 Within the CLI.pi file, the method to plot predictions is define as
 
 ```sh
-  CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] [--ppr=<ppr>]
-  [--figsize=<fsize>] [--output_format=<oformat>]
+  CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] 
+  [--target_names=<tnames>] [--ppr=<ppr>] [--figsize=<fsize>] [--output_format=<oformat>]
 ```
 
 * `<plot_file>` : **str** \
@@ -99,7 +99,10 @@ Within the CLI.pi file, the method to plot predictions is define as
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; When a file that contains multiple chromosome and position values is given to **predict**, all predictions are saved in a single &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tensor. \<findex\> specifies which prediction within the tensor is plotted.
 
 * `<tindex>` : **int** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The index of the feature to be plotted. By default, the index of the feature with the largest value is plotted.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The target index to be plotted. By default, the index of the target with the smallest value is plotted.
+
+* `<target_names>` : **str** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to a file that contains the name of the target index that is plotted. Each row of the file should contain the name to be plotted. By default, the index value is plotted if a name is not given.
 
 * `<ppr>` : **int** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The number of positions plotted in each row. The total rows plotted is equal to `ceiling(total number of positions/<ppr>)`. 
