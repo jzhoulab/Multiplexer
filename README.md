@@ -85,7 +85,7 @@ After using **predict**, **plot** can take the saved output file and plot a 4x20
 To use **plot** in the command line, enter:
 
 ```sh
-python CLI.py plot <input_file> <output_name> 
+python CLI.py plot --plot_file=<input_file> <output_name> 
 ``` 
 Where \<input_file> is the relative path to the Multiplexer predictions saved by **predict** and \<output_name> is the desired name for the saved plot. Note, plots and predictions will be saved by default into the `./newSaves' directory.
  
@@ -154,13 +154,13 @@ To access a saved tsv file saved with the `--add_tsv` flag , it is suggested tha
 After **predict** is used and an output is saved, **plot** can be used to generate and save a heatmap of the saved prediction. The full menu of options is shown below:
   
 ```sh
-python CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] [--ppr=<ppr>]
-  [--figsize=<fsize>] [--output_format=<oformat>] 
+CLI.py plot --plot_file=<plot_file> <output_name> [--file_index=<findex>] [--target_index=<tindex>] 
+[--target_names=<tnames>][--ppr=<ppr>] [--figsize=<fsize>] [--output_format=<oformat>]
 ```
   
 **plot** will create a heatmap showing the predicted mutation effects at all basepairs of the sequence: blue and red colors indicate negative and positive effects respectively. Specifically, the heatmap shows the log fold change of the prediction (log(ALT/(1-ALT))-log(REF/(1-REF)) (the default), or the difference (ALT-REF) if the --diff flag is used. Additionally, the reference sequence is shown on top of the heatmap, with darker color indicating more important bases (average mutation effects are more negative).
 
-By default, the index of the chromatin profile with the largest value is plotted, but the users can optionally specify an index as well with the \<index> argument.
+By default, the index of the chromatin profile with the smallest value is plotted, but the users can optionally specify an index as well with the \<index> argument.
 
 # Manuscript
 
