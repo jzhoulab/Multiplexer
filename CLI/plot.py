@@ -2,12 +2,15 @@ import pyfaidx
 import torch
 from torch import nn
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import seaborn as sns
 import math
+import pandas as pd
 
 import sys
 sys.path.append('../models')
 from Beluga import Beluga
+
 
 
 def get_data(input_file_path, file_index):
@@ -30,6 +33,7 @@ def get_data(input_file_path, file_index):
         
     
     i = 0 if file_index == None else int(file_index) - 1
+    
     
     center_pos = data['center_pos'] if type(data['center_pos']) != list else data['center_pos'][i]
     return data["prediction"][i], data["reference"][i], center_pos, data["diff"]
@@ -179,7 +183,7 @@ def get_colors(array, diff = False):
     
     
 
-def create_plot(plot_array, letters, colors, x_ticks, figname, ppr = None, figsize = None, output_format = None):
+def create_plot(plot_index, plot_array, letters, colors, x_ticks, figname, target_names = None, ppr = None, figsize = None, output_format = None):
     """
     This method creates the plots and saves them as a pdf file
     
@@ -209,8 +213,6 @@ def create_plot(plot_array, letters, colors, x_ticks, figname, ppr = None, figsi
             format of output plot (e.g 'pdf')
             
     
-    
-    
     """
     #define optional arguments
     ppr = 200 if ppr == None else ppr 
@@ -230,6 +232,7 @@ def create_plot(plot_array, letters, colors, x_ticks, figname, ppr = None, figsi
 
     
     fig = plt.figure(figsize = figsize)
+    
     fig.subplots_adjust(hspace = 2)
     
     plot_dict = {}
@@ -246,6 +249,22 @@ def create_plot(plot_array, letters, colors, x_ticks, figname, ppr = None, figsi
         
         plot_letters(plot_dict['ax' + str(j)], letters[(j-1)*ppr:j*ppr], colors[(j-1)*ppr:j*ppr], ppr)
         ret = sns.heatmap(plot_array[(j-1)*ppr:j*ppr].T, cbar=True, center = 0, vmin = min_val, vmax = max_val, ax = plot_dict['ax' + str(j)], cmap = 'RdBu_r')
+        
+
+        if j == 1: 
+            if target_names:
+                file = open(target_names)
+                names = file.read().split("\n")
+                title = names[plot_index]
+ 
+            else:
+                title = "Target Index Plotted: " + str(plot_index)
+                
+            
+            mpl.rcParams['axes.titlesize'] = 40
+            ret.set_title(title, y = 1.3)
+            
+                  
         ret.set_yticks([i + 0.5 for i in range(4)])
         ret.set_yticklabels(labels = ['A','G','C','T'], rotation =0)
         ret.set_xticks([i*5 + 0.5 for i in range(int(math.ceil(ppr/5)))])
@@ -259,12 +278,11 @@ def create_plot(plot_array, letters, colors, x_ticks, figname, ppr = None, figsi
                 xticks[i].set_visible(False)
             
 
-    
     plt.savefig("./newSaves/" + figname + "." + output_format, format = output_format)
     
     
 
-def plot(input_file_path, output_name, ppr, file_index = None, user_index = None, figsize = None, output_format = None):
+def plot(input_file_path, output_name, ppr, file_index = None, target_names = None, user_index = None, figsize = None, output_format = None):
     """
     This method formats the data, sets up the coloring scheme, and determines the values to plot
     
@@ -313,8 +331,9 @@ def plot(input_file_path, output_name, ppr, file_index = None, user_index = None
 
 
     #get mean alternative predictions
+    
   
-    alt_predictions = Predicted_chromatin_profiles * (reference!=1)[ None,:,:]    
+    alt_predictions = Predicted_chromatin_profiles * (reference!=1)[ None,:,:] 
     alt_predictions = alt_predictions.sum(axis=1)/3
     alt_predictions = alt_predictions
    
@@ -325,8 +344,8 @@ def plot(input_file_path, output_name, ppr, file_index = None, user_index = None
         
     else:
         #get strongest index#
-        max_arr = alt_predictions.max(axis = 1)
-        plot_index = torch.argmax(max_arr[0]).item()
+        max_arr = alt_predictions.min(axis = 1)
+        plot_index = torch.argmin(max_arr[0]).item()
 
 
 
@@ -344,5 +363,5 @@ def plot(input_file_path, output_name, ppr, file_index = None, user_index = None
 
 
 
-    create_plot(plot_array.detach().cpu(), letters, letter_colors, x_ticks, output_name, ppr, figsize, output_format)
+    create_plot(plot_index, plot_array.detach().cpu(), letters, letter_colors, x_ticks, output_name, target_names, ppr, figsize, output_format)
 
