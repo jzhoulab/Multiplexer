@@ -102,7 +102,7 @@ Within the CLI.pi file, the method to plot predictions is define as
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The target index to be plotted. By default, the index of the target with the smallest value is plotted.
 
 * `<target_names>` : **str** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to a file that contains the name of the target index that is plotted. Each row of the file should contain the name to be plotted. By default, the index value is plotted if a name is not given.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The path to a file that contains the name of the target index that is plotted. Each row of the file should contain the name to be plotted. By default, the index value is plotted if a name is not given. A file of target names for BelugaMultiplexer predictions is provide in the CLI directory for convenience. 
 
 * `<ppr>` : **int** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The number of positions plotted in each row. The total rows plotted is equal to `ceiling(total number of positions/<ppr>)`. 
