@@ -147,12 +147,13 @@ def get_colors(array, diff = False):
     colors = []
     if diff:
         
-        minval = torch.abs(array[array < 0]).max().item() #abs value of the min
+        minval = torch.abs(array[array < 0]).max().item()*0.5 #abs value of the min
         maxval = array.max().item()
         primary_color = 0.9
         for i in array:
             
             if i < 0:
+                if (-1*i.item()) > (maxval): i = torch.tensor(maxval)
                 second_color = round(0.9 - (0.9)/(minval)*(torch.abs(i).item()), 2)
                 color = (second_color, second_color, primary_color)
             elif i == 0:
@@ -166,9 +167,10 @@ def get_colors(array, diff = False):
         
     else:
         minval = 0
-        maxval = torch.abs(array[array < 0]).max().item()
+        maxval = torch.abs(array[array < 0]).max().item()*0.5 #max negative value
         for i in array:
             if i < 0:
+                if (-1*i.item()) > (maxval): i = torch.tensor(maxval) #all negative values would be set to this
                 color = round(0.9 - (0.9)/(maxval - minval)*(torch.abs(i).item() - minval), 2)
                 
             else:
@@ -176,7 +178,6 @@ def get_colors(array, diff = False):
                 
             colors.append( (color, color, color) )
          
-    
     
     return colors
     
