@@ -1,8 +1,10 @@
 # Overview
 
-Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a "Base" model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. Here, we provide the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single 2,000 base-pair sequence for 2,002 chromatin profiles. Additionally, we provide a Jupyter notebook that contains a template for custom Multiplexer model training and development.
+Multiplexer is a Python library and command line interface tool that enables users to develop and apply Multiplexer sequence models. A "Multiplexer model" is an augmented neural network that is trained from a "Base" model to provide fast, simultaneous predictions for a large set of input variations, such as all possible single nucleotide variations (SNVs) for a single sequence. Here, we provide the pre-trained BelugaMultiplexer, which predicts the effects of all possible SNVs of a single 2,000 base-pair sequence for 2,002 chromatin profiles. Additionally, we provide a Jupyter notebook that contains a template for custom Multiplexer model training and development. A webserver that runs Beluga Multiplexer is available at https://multiplexer.zhoulab.io. The paper is available [here](https://icml-compbio.github.io/2023/papers/WCBICML2023_paper139.pdf).
 
 The command line tool features two methods, **predict** and **plot**. With **predict**, users can quickly generate a DNA-sequence and make predictions with either the trained BelugaMultiplexer model or their own Multiplexer model, and with **plot**, users can create visualizations of their prediction outputs.
+
+
 
 
 # Installation
